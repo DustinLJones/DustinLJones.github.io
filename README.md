@@ -3,8 +3,11 @@
 Source code for my personal portfolio website.
 
 ## Current Tech Stack
-- HTML
-- CSS
+**Framework:** Astro
+**Languages:**
+- JavaScript
+- HTML5
+- CSS3
 
 ## Deployment 
 Hosted using GitHub pages.
