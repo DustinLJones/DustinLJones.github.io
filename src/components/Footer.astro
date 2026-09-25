@@ -1,0 +1,28 @@
+---
+import Icon from "@components/common/Icon.astro";
+import { SITE_EMAIL_ROUTE, FOOTER_TEXT, GITHUB_LINK, LINKEDIN_LINK } from '@data/site-constants.ts';
+import { faEnvelope, faGithub, faLinkedin } from "@data/icons.ts";
+---
+
+<footer class="site-band">
+  <div class="site-band-nav">
+    <!-- Single-line message to inlcude -->
+    <p class="footer-message">{ FOOTER_TEXT }</p>
+
+    <!-- Site Email Information -->
+    <a href=`mailto:${SITE_EMAIL_ROUTE}` class="footer-email">
+      <Icon definition={ faEnvelope } />
+      <span>{ SITE_EMAIL_ROUTE }</span>
+    </a>
+
+    <!-- SOCIALS - LinkedIn/GitHub/etc. -->
+    <div class="footer-social-container">
+      <a href={ GITHUB_LINK } class="footer-social-icon">
+      <Icon definition={ faGithub } />
+      </a>
+      <a href={ LINKEDIN_LINK } class="footer-social-icon">
+        <Icon definition={ faLinkedin } />
+      </a>
+    </div>
+  </div>
+</footer>

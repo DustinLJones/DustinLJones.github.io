@@ -1,0 +1,20 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import JournalCard from "@components/JournalCard.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+const allJournals: CollectionEntry<'journals'>[] = (await getCollection('journals'))
+  .sort((a:CollectionEntry<'journals'>, b:CollectionEntry<'journals'>) => 
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<MainLayout title="Journals">
+  <h1 class="mass-content-header">ALL JOURNALS</h1>
+  <div class="mass-content-container">
+    {allJournals.map(journal => (
+      <JournalCard journal={ journal } />
+    ))}
+  </div>
+</MainLayout>

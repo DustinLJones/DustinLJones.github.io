@@ -1,0 +1,30 @@
+---
+import { formatDate, limitText } from "@data/utils.ts";
+import type { CollectionEntry } from "astro:content";
+
+const { project } = Astro.props;
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+---
+
+<div class="single-content-container shadow">
+  <a href={"/projects/" + project.id} class="single-content-photo-container">
+    <img src={"./src/images/projects/" + project.data.image } class="single-content-photo">
+  </a>
+  <div class="single-content-data">
+    <a href={"/projects/" + project.id} class="single-content-title">
+      { project.data.title } 
+    </a>
+    <p class="single-content-date">{ formatDate(project.data.pubDate) }</p>
+    <p class="single-content-summary">{ limitText(project.data.summary) }</p>
+    <div class="tags">
+      {project.data.tags.map((tag: string) => (
+        <span class="tag">
+          <a href={"/projects/tag/" + tag}>{tag}</a>
+        </span>
+      ))}
+    </div>
+  </div>
+</div>

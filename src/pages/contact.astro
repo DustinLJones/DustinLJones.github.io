@@ -1,0 +1,24 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { CONTACT_LINKS, CONTACT_MESSAGE } from "@data/contact-constants.ts";
+---
+
+<MainLayout title="Contact">
+  <h1 class="mass-content-header">CONTACT INFORMATION</h1>
+  <p class="contact-intro">{ CONTACT_MESSAGE }</p>
+
+  <section class="contact-links">
+    {
+      CONTACT_LINKS.map((item) => (
+        <a 
+          class="contact-link" 
+          href={ item.mailTo ? "mailto:" + item.href : item.href }
+          download={ item.download }
+        >
+          <span>{ item.label }</span>
+          <span>{ "alternateText" in item ? item.alternateText : item.href }</span>
+        </a>
+      ))
+    }
+  </section>
+</MainLayout>

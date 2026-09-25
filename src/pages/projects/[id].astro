@@ -1,0 +1,49 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry} from "astro:content";
+
+export async function getStaticPaths() {
+  const allProjects: CollectionEntry<"projects">[] = await getCollection("projects");
+
+  return allProjects.map(project => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+};
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<MainLayout title={ project.data.title }>
+  <header class="content-header">
+    <h1 class="content-title">{ project.data.title }</h1>
+
+    <div class="content-meta">
+      <span>{ project.data.summary }</span>
+    </div>
+
+    <div class="button-row-group">
+      { project.data.githubPath && (
+        <a class="link-primary shadow" href={ project.data.githubPath }>
+          GitHub
+        </a>
+      )}
+      { project.data.demoPath && (
+        <a class="link-primary shadow" href={ project.data.demoPath }>
+          Live Demo
+        </a>
+      )}
+      { project.data.associatedJournal && (
+        <a class="link-primary shadow" href={ `../journals/${project.data.associatedJournal}` }>
+          Associated Journal
+        </a>
+      )}
+    </div>
+  </header>
+
+  <article class="content-details">
+    <Content />
+  </article>
+</MainLayout>

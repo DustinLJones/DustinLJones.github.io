@@ -1,0 +1,41 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry} from "astro:content";
+import { formatDate } from "@data/utils.ts";
+
+export async function getStaticPaths() {
+  const allJournals: CollectionEntry<"journals">[] = await getCollection("journals");
+
+  return allJournals.map(journal => ({
+    params: { id: journal.id },
+    props: { journal },
+  }));
+};
+
+const { journal } = Astro.props;
+const { Content } = await render(journal);
+---
+
+<MainLayout title={ journal.data.title }>
+  <header class="content-header">
+    <h1 class="content-title">{ journal.data.title }</h1>
+
+    <div class="content-meta">
+      <span>{ formatDate(journal.data.pubDate) }</span>
+      <span>{ journal.data.readTimeMinutes } min read</span>
+    </div>
+
+    <div class="tags">
+      { journal.data.tags.map((tag: string) => (
+        <span class="tag shadow"}>
+          <a href={`/journals/tag/${tag}`}>{tag}</a>
+        </span>
+      )) }
+    </div>
+  </header>
+
+  <article class="content-details">
+    <Content />
+  </article>
+</MainLayout>

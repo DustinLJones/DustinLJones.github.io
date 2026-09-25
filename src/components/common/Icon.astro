@@ -1,0 +1,40 @@
+---
+import {
+  icon,
+  type IconDefinition,
+} from "@fortawesome/fontawesome-svg-core";
+
+interface Props {
+  definition: IconDefinition;
+  size?: string;
+  class?: string;
+}
+
+const {
+  definition,
+  size = "1.5em",
+  class: className,
+} = Astro.props;
+
+const renderedIcon = icon(definition);
+---
+
+<span
+  class={className}
+  style={`width: ${size}; height: ${size}`}
+  set:html={renderedIcon.html.join("")}
+/>
+
+<style>
+  span {
+    display: inline-flex;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  span :global(svg) {
+    display: block;
+    width:100%;
+    height: 100%; 
+  }
+</style>
