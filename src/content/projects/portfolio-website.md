@@ -5,7 +5,7 @@ pubDate: 2026-09-11
 githubPath: 'https://github.com/DustinLJones/DustinLJones.github.io'
 demoPath: '/'
 associatedJournal: 'building-my-developer-portfolio'
-image: 'portfolio-website.png'
+image: '../../images/projects/portfolio-website.png'
 tags: ['Astro', 'TypeScript', 'Cloudflare']
 slug: 'portfolio-website'
 ---
