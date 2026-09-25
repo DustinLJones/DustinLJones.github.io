@@ -1,0 +1,76 @@
+---
+import Icon from "@components/common/Icon.astro";
+import { faSun, faMoon } from "@data/icons.ts";
+---
+
+<button type="button" id="theme-toggle" class="btn-primary" aria-label="Switch to dark theme" aria-pressed="false">
+  <Icon definition={ faMoon } class="header-theme-icon theme-icon-moon"/>
+  <Icon definition={ faSun } class="header-theme-icon theme-icon-sun"/>
+</button>
+
+<script>
+  function initializeThemeToggle() {
+    const root = document.documentElement;
+    const button = document.querySelector<HTMLButtonElement>("#theme-toggle");
+
+    if (!button) {
+      return;
+    }
+
+    function applyTheme(theme: "light" | "dark") {
+      const isDark = theme === "dark";
+
+      root.dataset.theme = theme;
+      localStorage.setItem("theme", theme)
+
+      button?.setAttribute("aria-pressed", String(isDark));
+      button?.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+    }
+
+    const storedTheme = localStorage.getItem("theme") 
+    const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const initialTheme = storedTheme === "dark" || storedTheme === "light" ? storedTheme : preferredTheme;
+
+    applyTheme(initialTheme);
+
+    button.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+    });
+  }
+
+  initializeThemeToggle();
+</script>
+
+<style>
+  #theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    color: var(--text-color);
+  }
+
+  #theme-toggle:hover {
+    cursor: pointer;
+    color: var(--accent-color);
+  }
+
+  :global(html[data-theme="dark"] .theme-icon-moon) {
+    display: none;
+  }
+
+  :global(html[data-theme="dark"] .theme-icon-sun) {
+    display: block;
+  }
+
+  :global(html[data-theme="light"] .theme-icon-moon) {
+    display: block;
+  }
+
+  :global(html[data-theme="light"] .theme-icon-sun) {
+    display: none;
+  }
+</style>

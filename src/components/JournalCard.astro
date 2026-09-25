@@ -1,0 +1,29 @@
+---
+import { formatDate } from "@data/utils.ts";
+import type { CollectionEntry } from "astro:content";
+
+const { journal } = Astro.props;
+
+interface Props {
+  journal: CollectionEntry<'journals'>
+}
+---
+
+<div class="single-content-container shadow">
+  <a href={"/journals/" + journal.id} class="single-content-photo-container">
+    <img src={"./src/images/journals/" + journal.data.image } class="single-content-photo">
+  </a>
+  <div class="single-content-data">
+    <a href={"/journals/" + journal.id} class="single-content-title">
+      { journal.data.title } 
+    </a>
+    <p class="single-content-date">{ formatDate(journal.data.pubDate) }</p>
+    <div class="tags">
+      { journal.data.tags.map((tag: string) => (
+        <span class="tag">
+          <a href={"/journals/tag/" + tag}>{tag}</a>
+        </span>
+      )) }
+    </div>
+  </div>
+</div>

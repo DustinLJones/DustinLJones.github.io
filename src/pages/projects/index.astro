@@ -1,2 +1,20 @@
-<h1>Projects</h1>
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
+const allProjects: CollectionEntry<'projects'>[] = (await getCollection('projects'))
+  .sort((a:CollectionEntry<'projects'>, b:CollectionEntry<'projects'>) => 
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<MainLayout title="Projects">
+  <h1 class="mass-content-header">ALL PROJECTS</h1>
+  <div class="mass-content-container">
+    {allProjects.map(project => (
+        <ProjectCard project={ project } />
+    ))}
+  </div>
+</MainLayout>

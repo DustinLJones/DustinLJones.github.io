@@ -1,23 +1,41 @@
 ---
-import '../styles/global.css';
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro"
+import ProjectCard from "@components/ProjectCard.astro";
+import heroVisual from "../images/hero-visual.png"
+import { HOMEPAGE_CARD_LIMIT, HERO_ROLE, HERO_STANDOUT, HERO_DESC } from "@data/site-constants.ts"
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+const allProjects: CollectionEntry<'projects'>[] = (await getCollection('projects'))
+  .sort((a:CollectionEntry<'projects'>, b:CollectionEntry<'projects'>) => 
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Dustin Jones</title>
-	</head>
-	<body>
-		<main>
-			<h1>Dustin Jones</h1>
-			<h3>Sytems Engineer</h3>
-			<p>My portfolio is currently under construction.</p>
-			<p>Check back soon!</p>
-		</main>
-	</body>
-</html>
+<MainLayout>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-role">{ HERO_ROLE }</p>
+      <h1 class="hero-standout">{ HERO_STANDOUT }</h1>
+      <p class="hero-description">{ HERO_DESC }</p>
 
+      <div class="button-row-group">
+        <a href="/projects" class="link-primary shadow">View Projects</a>
+        <a href="/resume" class="link-primary shadow">View Resume</a>
+      </div>
+    </div>
+
+    <Image src={ heroVisual } alt="Stylized API flow" class="hero-visual shadow"/>
+  </section>
+
+  <section class="homepage-section">
+    <h1 class="homepage-title">Recent Projects</h1>
+
+    <div class="mass-content-container">
+      {allProjects.slice(0, HOMEPAGE_CARD_LIMIT).map(project => (
+        <ProjectCard project={ project } />
+      ))}
+    </div>
+  </section>
+</MainLayout>

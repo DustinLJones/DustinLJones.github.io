@@ -1,0 +1,33 @@
+---
+import Icon from "@components/common/Icon.astro"
+import { PRIMARY_NAVIGATION } from "@data/navigation.ts";
+import { HEADER_TEXT } from "@data/site-constants.ts";
+import ThemeToggle from "@components/ThemeToggle.astro";
+import { faLaptopCode  } from "@data/icons.ts";
+---
+
+<header class="site-band">
+  <nav class="site-band-nav">
+    <!-- Logo and name-->
+    <a href="/" class="header-branding-container" >
+      <Icon definition={ faLaptopCode } />
+      <span>{ HEADER_TEXT }</span>
+    </a>
+
+    <!-- Navigation tiles -->
+    <ul class="header-navigation">
+      {
+        PRIMARY_NAVIGATION.map((item) => (
+          <li>
+            <a href={item.href}>
+              { item.label }
+            </a>
+          </li>
+        ))
+      }
+      <!-- Theme Switcher Button -->
+      <ThemeToggle />
+    </ul>
+  </nav>
+</header>
+ 

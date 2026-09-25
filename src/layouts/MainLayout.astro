@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '@data/site-constants.ts';
+
+const { title = 'Home' } = Astro.props;
+---
+
+<html lang="en">
+  <script is:inline>
+    const storedTheme = localStorage.getItem("theme");
+    const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = storedTheme ?? preferredTheme;
+  </script>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/images/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={ SITE_DESCRIPTION } />
+    <meta name="generator" content={Astro.generator} />
+    <title>{ SITE_TITLE } - { title }</title>
+  </head>
+  <body>
+    <Navbar />
+    <main class="page-content-container">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+

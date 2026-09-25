@@ -1,1 +1,123 @@
-<h1>Placeholder for Resume</h1>
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { RESUME } from "@data/resume-constants.ts";
+import { formatDate } from "@data/utils.ts";
+---
+
+<MainLayout title="Resume">
+  <h1 class="mass-content-header">PROFESSIONAL RESUME</h1>
+
+  <!-- Resume Header -->
+  <section class="resume-header">
+    <div>
+      <h1>{ RESUME.name }</h1>
+      <p>{ RESUME.summary }</p>
+    </div>
+
+    <div class="resume-actions">
+      <a href="/documents/resume.pdf" class="link-primary shadow" download>
+        Download Resume
+      </a>
+    </div>
+  </section>
+
+  <!-- Professional Experience -->
+  <section class="resume-section">
+    <h2>Professional Experience</h2>
+    
+    { RESUME.experience.map((entry) => (
+      <article class="resume-entry">
+        <header class="resume-entry-header">
+          <div>
+            <h3>{ entry.title }</h3>
+            <p class="resume-organization">{ entry.organization }</p>
+          </div>
+
+          <div class="resume-entry-meta">
+            <p>{ entry.location }</p>
+            <p>
+              { formatDate(entry.startDate) } - {"endDate" in entry ? 
+                formatDate(entry.endDate) : 
+                "Present" 
+              }
+            </p>
+          </div>
+        </header>
+
+        <ul>
+          {
+            entry.highlights.map((highlight) => (
+              <li>{ highlight }</li>
+            ))
+          }
+        </ul>
+      </article>
+    )) }
+  </section>
+
+  <!-- Technical Skills -->
+  <section class="resume-section">
+    <h2>Technical Skills</h2>
+
+    <div class="resume-skills">
+      { RESUME.skills.map((entry) => (      
+        <div class="resume-skill-group shadow">
+          <h3>{ entry.group }</h3>
+          <ul>
+            { entry.items.map((item) => (
+              <li>{ item }</li>
+            )) }
+          </ul>
+        </div>
+      )) }
+    </div>
+  </section>
+
+  <!-- Professional Development -->
+  <section class="resume-section">
+    <h2>Professional Development</h2>
+
+    { RESUME.development.map((entry) => (
+      <article class="resume-entry">
+        <header class="resume-entry-header">
+          <div>
+            <h3>{ entry.title }</h3>
+            <p class="resume-organization">
+              { entry.organization }
+            </p>
+          </div>
+
+          <div class="resume-entry-meta">
+            <p>{ formatDate(entry.dateObtained) }</p>
+          </div>
+        </header>
+
+        <p>{ entry.description }</p>
+      </article>
+    )) }
+  </section>
+
+  <!-- Education -->
+  <section class="resume-section" >
+    <h2>Education</h2>
+
+    { RESUME.education.map((entry) => (
+      <article class="resume-entry">
+        <header class="resume-entry-header">
+          <div>
+            <h3>{ entry.title }</h3>
+            <p class="resume-organization">
+              { entry.organization }
+            </p>
+          </div>
+
+          <div class="resume-entry-meta">
+            <p>{ formatDate(entry.dateObtained) }</p>
+          </div>
+        </header>
+
+        <p>{ entry.description }</p>
+      </article>
+    )) }
+  </section>
+</MainLayout>
