@@ -2,7 +2,7 @@
 title: <string>
 pubDate: <date> format (yyyy-mm-dd)
 readTimeMinutes: <int>
-image: <string>
+image: <string> (path-to-image)
 tags: <string>[]
 slug: <string>
 ---

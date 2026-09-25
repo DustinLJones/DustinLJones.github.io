@@ -2,7 +2,7 @@
 title: 'Building My Developer Portfolio'
 pubDate: 2026-09-07
 readTimeMinutes: 10
-image: 'journal-placeholder.jpg'
+image: '../../images/journals/journal-placeholder.jpg'
 tags: ['Astro', 'TypeScript', 'Web Development']
 slug: building-my-developer-portfolio
 ---

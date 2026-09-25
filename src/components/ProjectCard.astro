@@ -1,5 +1,6 @@
 ---
 import { formatDate, limitText } from "@data/utils.ts";
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 const { project } = Astro.props;
@@ -11,7 +12,7 @@ interface Props {
 
 <div class="single-content-container shadow">
   <a href={"/projects/" + project.id} class="single-content-photo-container">
-    <img src={"./src/images/projects/" + project.data.image } class="single-content-photo">
+    <Image src={ project.data.image } alt="" class="single-content-photo"/>
   </a>
   <div class="single-content-data">
     <a href={"/projects/" + project.id} class="single-content-title">

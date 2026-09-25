@@ -2,7 +2,7 @@
 title: 'Configuring a Custom Domain with Cloudflare'
 pubDate: 2026-09-05
 readTimeMinutes: 7
-image: 'cf-logo-2.jpg'
+image: '../../images/journals/cf-logo-2.jpg'
 tags: ['Cloudflare', 'DNS', 'GitHub Pages', 'HTTPS']
 slug: configuring-a-custom-domain-with-cloudflare
 ---
